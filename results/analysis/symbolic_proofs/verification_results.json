@@ -1,0 +1,337 @@
+{
+  "metadata": {
+    "script": "symbolic_verify.py",
+    "sympy_version": "1.14.0",
+    "run_at_utc": "2026-04-15T08:48:36.410349Z",
+    "operators": {
+      "EML": "exp(a) - ln(b)",
+      "DivLogExp": "ln(x) / exp(y)"
+    }
+  },
+  "summary": {
+    "derivation_groups": 9,
+    "groups_pass": 9,
+    "groups_fail": 0,
+    "total_steps": 28,
+    "steps_pass": 28,
+    "steps_fail": 0,
+    "overall_verdict": "PASS"
+  },
+  "derivations": [
+    {
+      "name": "EML-1: exp(x) from EML",
+      "description": "EML(x, 1) = exp(x) - ln(1) = exp(x)",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "EML(x, 1) definition expansion",
+          "expr_str": "exp(x)",
+          "target_str": "exp(x)",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Direct substitution b=1 into EML definition"
+        },
+        {
+          "label": "ln(1) = 0",
+          "expr_str": "0",
+          "target_str": "0",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Fundamental logarithm identity"
+        },
+        {
+          "label": "EML(x, 1) = exp(x)",
+          "expr_str": "exp(x)",
+          "target_str": "exp(x)",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Final equality after ln(1)=0"
+        }
+      ]
+    },
+    {
+      "name": "EML-2: e from EML",
+      "description": "EML(1, 1) = exp(1) - ln(1) = e",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "EML(1, 1) definition expansion",
+          "expr_str": "E",
+          "target_str": "E",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Substitute a=1, b=1"
+        },
+        {
+          "label": "exp(1) - 0 = e",
+          "expr_str": "E",
+          "target_str": "E",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "SymPy E is Euler's number"
+        }
+      ]
+    },
+    {
+      "name": "EML-3: ln(x) from EML",
+      "description": "EML(1, exp(EML(1, x))) = ln(x)  [x > 0]",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "Inner: EML(1, x) = e - ln(x)",
+          "expr_str": "E - log(x)",
+          "target_str": "E - log(x)",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "a=1, b=x in EML definition"
+        },
+        {
+          "label": "Middle: exp(EML(1, x)) = exp(e - ln(x)) = e^e / x",
+          "expr_str": "exp(E)/x",
+          "target_str": "exp(E)/x",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "exp(e - ln(x)) = exp(e)*exp(-ln(x)) = e^e * 1/x"
+        },
+        {
+          "label": "Outer: ln(exp(e - ln(x))) = e - ln(x)",
+          "expr_str": "log(exp(E)/x)",
+          "target_str": "E - log(x)",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "ln(exp(u)) = u when u is real"
+        },
+        {
+          "label": "Full: EML(1, exp(EML(1,x))) = e - (e - ln(x)) = ln(x)",
+          "expr_str": "E - log(exp(E)/x)",
+          "target_str": "log(x)",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Final equality -- the complete ln derivation"
+        }
+      ]
+    },
+    {
+      "name": "EML-4: Subtraction x - y from EML",
+      "description": "EML(ln(x), exp(y)) = exp(ln(x)) - ln(exp(y)) = x - y  [x > 0, y real]",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "EML(ln(x), exp(y)) definition",
+          "expr_str": "x - y",
+          "target_str": "x - y",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Substitute a=ln(x), b=exp(y)"
+        },
+        {
+          "label": "exp(ln(x)) = x  [x > 0]",
+          "expr_str": "x",
+          "target_str": "x",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Inverse function identity, valid for x > 0"
+        },
+        {
+          "label": "ln(exp(y)) = y  [y real]",
+          "expr_str": "y",
+          "target_str": "y",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Inverse function identity; y positive => real"
+        },
+        {
+          "label": "EML(ln(x), exp(y)) = x - y",
+          "expr_str": "x - y",
+          "target_str": "x - y",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Both x>0 and y>0 (or y real) give the subtraction"
+        }
+      ]
+    },
+    {
+      "name": "EML-5: Negation -x from EML",
+      "description": "Negation via EML: 0 = ln(1) companion, then EML(ln(1), exp(x)) - 1 = (1-x) - 1 = -x\n  Also verifies 0 is derivable as EML(ln(1), exp(1)) = 1 - 1 = 0",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "0 derivable: EML(ln(1), exp(1)) = exp(0) - ln(e) = 1 - 1 = 0",
+          "expr_str": "0",
+          "target_str": "0",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "exp(ln(1)) - ln(exp(1)) = exp(0) - ln(e) = 1 - 1 = 0. This gives 0 from EML using companion constants 1 and e."
+        },
+        {
+          "label": "ln(1) = 0 (companion constant for EML a-slot)",
+          "expr_str": "0",
+          "target_str": "0",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "The a=0 input to EML's a-slot corresponds to exp(a)=1, so ln(1)=0"
+        },
+        {
+          "label": "EML(0, exp(x)) = exp(0) - ln(exp(x)) = 1 - x",
+          "expr_str": "1 - x",
+          "target_str": "1 - x",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "With a=ln(1)=0: EML(0, exp(x)) = 1 - x (shifted negation)"
+        },
+        {
+          "label": "-x = EML(ln(1), exp(x)) - 1 = (1-x) - 1",
+          "expr_str": "-x",
+          "target_str": "-x",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Subtract the additive offset 1 to obtain pure negation -x"
+        },
+        {
+          "label": "EML subtraction demo: EML(ln(x), exp(2*ln(x))) = x - 2*ln(x) [x>0]",
+          "expr_str": "x - log(x**2)",
+          "target_str": "x - 2*log(x)",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "exp(ln(x)) - ln(exp(2*ln(x))) = x - 2*ln(x). Demonstrates general EML subtraction with non-trivial arguments."
+        }
+      ]
+    },
+    {
+      "name": "EML-6: sin(x) from EML via cos(x - pi/2)",
+      "description": "Rust verifier found Sin = Cos[Subtract[x, Half[Pi]]] at K=5.\n  Verify symbolically: cos(x - pi/2) = sin(x).",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "cos(x - pi/2) = sin(x)  [trig identity]",
+          "expr_str": "sin(x)",
+          "target_str": "sin(x)",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Phase-shift identity: cos(theta - pi/2) = sin(theta). This is the EML chain derivation of sin from cos and the constant pi."
+        },
+        {
+          "label": "cos(x - pi/2) - sin(x) = 0  [direct check]",
+          "expr_str": "0",
+          "target_str": "0",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Difference must simplify to zero via trigsimp."
+        }
+      ]
+    },
+    {
+      "name": "EML-7: Addition x + y from Subtract(x, Minus(y))",
+      "description": "Rust verifier found Plus = Subtract[x, Minus[y]] at K=4.\n  Verify symbolically: x - (-y) = x + y.",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "Minus(y) = -y  [negation, from EML-5]",
+          "expr_str": "-b",
+          "target_str": "-b",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Negation -y is already derived as EML-5 in the chain."
+        },
+        {
+          "label": "Subtract(x, Minus(y)) = x - (-y)",
+          "expr_str": "a + b",
+          "target_str": "a + b",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "EML subtraction applied with second argument = -y."
+        },
+        {
+          "label": "x - (-y) = x + y  [algebraic identity]",
+          "expr_str": "a + b",
+          "target_str": "a + b",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Double negation: subtracting the negation of y gives addition. This is the EML chain derivation of addition from subtract and negate."
+        }
+      ]
+    },
+    {
+      "name": "DLE-1: ln(x) from DivLogExp",
+      "description": "DivLogExp(x, DivLogExp(1,1)) = ln(x)/exp(ln(1)/exp(1)) = ln(x)",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "Inner DivLogExp(1,1) = ln(1)/exp(1) = 0",
+          "expr_str": "0",
+          "target_str": "0",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "ln(1)=0 so the ratio is 0/e = 0"
+        },
+        {
+          "label": "Outer: DivLogExp(x, 0) = ln(x)/exp(0) = ln(x)/1 = ln(x)",
+          "expr_str": "log(x)",
+          "target_str": "log(x)",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "exp(0)=1 gives the desired result"
+        }
+      ]
+    },
+    {
+      "name": "DLE-2: 1/x from DivLogExp",
+      "description": "DivLogExp(e, ln(x)) = ln(e)/exp(ln(x)) = 1/x  [x > 0]",
+      "overall": "PASS",
+      "steps": [
+        {
+          "label": "ln(e) = 1",
+          "expr_str": "1",
+          "target_str": "1",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Fundamental identity"
+        },
+        {
+          "label": "exp(ln(x)) = x  [x > 0]",
+          "expr_str": "x",
+          "target_str": "x",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Inverse function identity for x > 0"
+        },
+        {
+          "label": "DivLogExp(e, ln(x)) = 1/x",
+          "expr_str": "1/x",
+          "target_str": "1/x",
+          "passed": true,
+          "method": "direct simplify",
+          "diff_str": "0",
+          "note": "Full result: ln(e)/exp(ln(x)) = 1/x"
+        }
+      ]
+    }
+  ]
+}

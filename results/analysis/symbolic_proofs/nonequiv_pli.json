@@ -1,0 +1,510 @@
+{
+  "metadata": {
+    "description": "Symbolic non-equivalence proof: PLI vs EML/EDL/NegEML/DivLogExp under transformations T1-T5",
+    "date": "2026-04-15T09:33:48.631740+00:00",
+    "functions": {
+      "PLI": "log(x)**(1/y)",
+      "EML": "exp(x) - log(y)",
+      "EDL": "exp(x) / log(y)",
+      "NegEML": "log(x) - exp(y)",
+      "DivLogExp": "log(x) / exp(y)"
+    },
+    "transformations": {
+      "T1": "Argument swap: f(x,y) <-> g(y,x)",
+      "T2": "Negation: f(x,y) <-> -g(x,y)",
+      "T3": "Reciprocal: f(x,y) <-> 1/g(x,y)",
+      "T4": "Constant shift: f(x,y) <-> g(x,y) + c",
+      "T5": "Constant multiply: f(x,y) <-> c*g(x,y)"
+    },
+    "domain_assumption": "x > 0, y > 0 (SymPy positive=True symbols)"
+  },
+  "comparisons": [
+    {
+      "pli_variant": "PLI(x,y)",
+      "target": "EML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(x,y)",
+      "target": "EML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(x,y)",
+      "target": "EDL(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(x,y)",
+      "target": "EDL(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(x,y)",
+      "target": "NegEML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(x,y)",
+      "target": "NegEML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(x,y)",
+      "target": "DivLogExp(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(x,y)",
+      "target": "DivLogExp(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(y,x)",
+      "target": "EML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(y,x)",
+      "target": "EML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(y,x)",
+      "target": "EDL(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(y,x)",
+      "target": "EDL(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(y,x)",
+      "target": "NegEML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(y,x)",
+      "target": "NegEML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(y,x)",
+      "target": "DivLogExp(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "PLI(y,x)",
+      "target": "DivLogExp(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(x,y)",
+      "target": "EML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(x,y)",
+      "target": "EML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(x,y)",
+      "target": "EDL(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(x,y)",
+      "target": "EDL(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(x,y)",
+      "target": "NegEML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(x,y)",
+      "target": "NegEML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(x,y)",
+      "target": "DivLogExp(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(x,y)",
+      "target": "DivLogExp(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(y,x)",
+      "target": "EML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(y,x)",
+      "target": "EML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(y,x)",
+      "target": "EDL(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(y,x)",
+      "target": "EDL(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(y,x)",
+      "target": "NegEML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(y,x)",
+      "target": "NegEML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(y,x)",
+      "target": "DivLogExp(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "-PLI(y,x)",
+      "target": "DivLogExp(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(x,y)",
+      "target": "EML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(x,y)",
+      "target": "EML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(x,y)",
+      "target": "EDL(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(x,y)",
+      "target": "EDL(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(x,y)",
+      "target": "NegEML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(x,y)",
+      "target": "NegEML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(x,y)",
+      "target": "DivLogExp(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(x,y)",
+      "target": "DivLogExp(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(y,x)",
+      "target": "EML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(y,x)",
+      "target": "EML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(y,x)",
+      "target": "EDL(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(y,x)",
+      "target": "EDL(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(y,x)",
+      "target": "NegEML(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(y,x)",
+      "target": "NegEML(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(y,x)",
+      "target": "DivLogExp(x,y)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    },
+    {
+      "pli_variant": "1/PLI(y,x)",
+      "target": "DivLogExp(y,x)",
+      "checks": {
+        "exact_equal": false,
+        "t4_constant_shift": false,
+        "t5_constant_multiply": false
+      },
+      "verdict": "NON-EQUIVALENT"
+    }
+  ],
+  "summary": {
+    "total_comparisons": 48,
+    "equivalent_found": 0,
+    "non_equivalent": 48,
+    "overall_conclusion": "PROVEN NON-EQUIVALENT: PLI cannot be obtained from EML, EDL, NegEML, or DivLogExp by any combination of argument-swap, negation, reciprocal, constant shift, or constant multiply."
+  },
+  "structural_argument": "STRUCTURAL NON-EQUIVALENCE ARGUMENT\n=====================================\nPLI(x,y) = ln(x)^(1/y)  is built from a POWER of ln(x).\n\nKey partial derivatives:\n  d/dx PLI = (1/y) * ln(x)^(1/y - 1) * (1/x)   [decays like 1/x]\n  d/dy PLI = -ln(x)^(1/y) * ln(ln(x)) / y^2     [contains ln(ln(x))]\n\nEML(x,y) = exp(x) - ln(y):\n  d/dx EML = exp(x)                              [grows exponentially]\n  d/dy EML = -1/y                                [simple reciprocal]\n\nEDL(x,y) = exp(x) / ln(y):\n  d/dx EDL = exp(x)/ln(y)                        [exponential / log]\n  d/dy EDL = -exp(x)/(y * ln(y)^2)              [exp * rational in y]\n\nWhy no T1-T5 combination can bridge this gap:\n  1. PLI introduces ln(ln(x)) (iterated logarithm) absent in EML/EDL.\n  2. EML/EDL have exp(x) in x-derivatives; PLI has a power of ln(x).\n  3. Affine transforms (T4/T5) preserve gradient structure ratios;\n     they cannot convert power-of-log into exp-minus-log.\n  4. Argument swap (T1) merely exchanges x and y roles;\n     it cannot convert a power structure into a sum/quotient.\n  5. Negation (T2) and reciprocal (T3) flip sign or invert;\n     neither introduces or removes the iterated-log term."
+}

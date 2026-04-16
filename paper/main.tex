@@ -1,0 +1,381 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[margin=2cm]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{conjecture}{Conjecture}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{PowerLogInv: A New Sheffer-Type Operator for Elementary Functions\\and a Computational Census of Operator Families}
+
+\author{SangHyeok Jeong\\
+Institute for Advanced Engineering, Gyeonggi-do, Republic of Korea\\
+\texttt{ORCID: 0000-0002-9458-0792}}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Odrzywołek~\cite{odrzywołek2026} showed that $\mathrm{eml}(x,y) = e^x - \ln y$, together with the constant~$1$, generates all 36~elementary function primitives of a scientific calculator. We discover \textbf{PowerLogInv} (PLI), $\mathrm{pli}(x,y) = (\ln x)^{1/y}$, a new continuous Sheffer operator that is \emph{non-equivalent} to the known EML/EDL family under argument swap, negation, reciprocal, and affine transforms. Non-equivalence is proven via the iterated logarithm $\ln(\ln x)$ appearing in PLI's partial derivative structure but absent from all EML/EDL variants. A systematic computational census of 14{,}712 verification runs across two structural levels finds three operator families (EML, EDL, PLI) within the explored space. We identify a \emph{depth hierarchy}: Sheffer operators exist at derivative depths~1--2 but not~0 or~$\geq 3$. We characterize the \emph{13/35 barrier} preventing non-exp/ln operators from achieving Sheffer-ness: the closure of trigonometric-additive operators cannot bridge to multiplicative structure without the exp-ln homomorphism. Empirical benchmarks show EML dominates all variants in both cost ($30.5$\,ns/op) and numerical stability (mean relative error $3.48 \times 10^{-10}$).
+\end{abstract}
+
+%======================================================================
+\section{Introduction}
+%======================================================================
+
+In Boolean logic, the NAND gate (Sheffer stroke~\cite{sheffer1913}) is a single binary operation from which all Boolean functions can be derived. No analogous primitive was known for continuous mathematics until Odrzywołek~\cite{odrzywołek2026} proved that
+\begin{equation}\label{eq:eml}
+\mathrm{eml}(x,y) = e^x - \ln y,
+\end{equation}
+together with the companion constant~$1$, generates all 36~elementary function primitives of a standard scientific calculator. The author also identified two additional operators---$\mathrm{edl}(x,y) = e^x / \ln y$ (with constant~$e$) and $-\mathrm{eml}(x,y) = \ln x - e^y$ (with constant~$-\infty$)---and conjectured these were ``the tip of the iceberg.''
+
+Tao~\cite{tao_mo} argued on MathOverflow that infinitely many universal binary functions exist, establishing that EML is one member of an abundant family. However, no second \emph{explicit, elementary-function} Sheffer operator was known, and no systematic census of the search space had been performed.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item We discover \textbf{PowerLogInv}: $\mathrm{pli}(x,y) = (\ln x)^{1/y}$ with companion constant~$1$, a new Sheffer operator proven non-equivalent to EML/EDL (Theorem~\ref{thm:nonequiv}).
+\item We complete a \textbf{computational census} of 14{,}712 verification runs across Level~1 (direct compositions) and Level~2 (nested compositions), finding three operator families within the explored space.
+\item We establish a \textbf{depth hierarchy} (Definition~\ref{def:depth}) and characterize the \textbf{13/35 barrier} that prevents non-exp/ln operators from achieving Sheffer-ness.
+\end{enumerate}
+
+%======================================================================
+\section{Methodology}
+%======================================================================
+
+\begin{definition}[Operational Sheffer-completeness]
+A binary operator $\mathrm{op}(x,y)$ is \emph{Sheffer-complete with respect to target set~$T$} if there exists a companion constant~$c$ such that every function in~$T$ can be expressed as a finite composition of $\mathrm{op}$ applied to~$c$ and input variables. We adopt the same target set as~\cite{odrzywołek2026} (Table~1, 35~functions). This is a constructive, finite criterion; it does not imply closure of the generated function class under arbitrary composition.
+\end{definition}
+
+\subsection{Search Space}
+
+We enumerate candidate operators $\mathrm{op}(x,y)$ at two structural levels:
+
+\begin{itemize}
+\item \textbf{Level~1}: $b(u_1(x), u_2(y))$ where $b$ is one of 6~binary operations and $u_1, u_2$ are chosen from 20~unary functions. After identity reduction and equivalence filtering: 2{,}011 valid candidates $\times$ 7~companion constants = 14{,}077 verification runs.
+\item \textbf{Level~2}: Three types of nested composition---left nesting $b(u_1(u_2(x)), u_3(y))$, right nesting $b(u_1(x), u_2(u_3(y)))$, and outer wrapping $u_0(b(u_1(x), u_2(y)))$---yielding 120{,}700 candidates. A 3-stage screening pipeline (Python $K_{\max}{=}3$ sieve $\to$ Rust $K_{\max}{=}7$ verification $\to$ equivalence analysis) reduces this to 635 candidates for full verification.
+\end{itemize}
+
+The 20~unary functions coincide with the unary primitives of~\cite{odrzywołek2026} (Table~1): $\exp$, $\ln$, $\sin$, $\cos$, $\tan$, $\arcsin$, $\arccos$, $\arctan$, $\sinh$, $\cosh$, $\tanh$, $\mathrm{arsinh}$, $\mathrm{arcosh}$, $\mathrm{artanh}$, $\sqrt{\cdot}$, $(\cdot)^2$, $1/(\cdot)$, $-(\cdot)$, $(\cdot)/2$, and the logistic sigmoid~$\sigma$. This library is complete in the sense that every standard scientific-calculator unary function is either in this set or derivable from it; extending the library with composed unary functions (e.g., $\exp \circ \ln$) would produce candidates already covered by the Level~2 search.
+
+\subsection{Equivalence Criteria}
+
+Two operators $\mathrm{op}_1$ and $\mathrm{op}_2$ are \emph{trivially equivalent} if they are related by any combination of:
+\begin{align*}
+T_1&: \mathrm{op}_1(x,y) = \mathrm{op}_2(y,x) && \text{(argument swap)}\\
+T_2&: \mathrm{op}_1 = -\mathrm{op}_2 && \text{(negation)}\\
+T_3&: \mathrm{op}_1 = 1/\mathrm{op}_2 && \text{(reciprocal)}\\
+T_4&: \mathrm{op}_1 = \mathrm{op}_2 + c && \text{(constant shift)}\\
+T_5&: \mathrm{op}_1 = c \cdot \mathrm{op}_2 && \text{(constant multiply)}
+\end{align*}
+$T_1, T_2, T_3$ are commuting involutions generating $(\mathbb{Z}/2\mathbb{Z})^3$ (order~8). $T_4, T_5$ compose to general affine transforms $c_1 f + c_2$. All 8~group elements $\times$ affine closure are tested.
+
+\subsection{Verification Pipeline}
+
+We fork the author's Rust verification engine~\cite{odrzywołek_code}, extending it with a \texttt{--custom-op} flag for runtime operator definition. Verification follows the bootstrapping algorithm of~\cite{odrzywołek2026}: starting from $\{\text{constant}, \mathrm{op}\}$, enumerate all RPN expressions up to complexity~$K$, evaluate at algebraically independent transcendental test points ($\gamma = 0.5772\ldots$, $A = 1.2824\ldots$), and check for numerical matches with 35~target functions ($\varepsilon = 16 \cdot \varepsilon_{\text{mach}}$). Discovered targets are promoted to the known set and the search restarts. Cross-validation uses mpmath at 128-bit precision (37/38 targets verified for PLI) and SymPy symbolic simplification (9~derivation groups, 28~steps, all PASS).
+
+%======================================================================
+\section{PowerLogInv Discovery}
+%======================================================================
+
+\begin{definition}
+$\mathrm{pli}(x,y) = (\ln x)^{1/y}$, with companion constant~$1$.
+\end{definition}
+
+The Rust verifier confirms $\mathrm{pli}$ generates all 35~default targets at $K_{\max} = 9$ in 38.53\,s (complex domain). In real domain ($K_{\max} = 7$), 23/35 targets are found, including all arithmetic operations; only 8~trigonometric/inverse-trigonometric functions remain (same situation as EML, which also requires complex domain for $\pi$ via $\ln(-1) = i\pi$).
+
+\subsection{Bootstrapping Chain}
+
+\begin{align}
+K{=}3:&\quad \ln(x) = \mathrm{pli}(x, 1) \label{eq:pli_ln}\\
+K{=}5:&\quad e = \mathrm{pli}(x, \ln(\ln(x))) \text{ for any } x > 1,\, x \neq e \label{eq:pli_e}\\
+K{=}6:&\quad e^x = \mathrm{pli}(y, \ln(\mathrm{pli}(y, x))) \text{ for any } y > 1,\, y \neq e \label{eq:pli_exp}\\
+K{=}5:&\quad x^y = \mathrm{pli}(e^x, 1/y) \label{eq:pli_pow}\\
+K{=}5:&\quad x \cdot y = \ln(e^{x \cdot y}) = \ln((e^x)^y) \label{eq:pli_times}
+\end{align}
+
+\paragraph{Derivation of $e^x$ (Eq.~\ref{eq:pli_exp}).}
+Let $L = \ln y > 0$ (requiring $y > 1$).
+\begin{align*}
+&\mathrm{pli}(y, \ln(\mathrm{pli}(y, x)))\\
+&= \mathrm{pli}(y,\; \ln(L^{1/x})) && \text{substitute } \mathrm{pli}(y,x) = L^{1/x}\\
+&= \mathrm{pli}(y,\; \tfrac{1}{x}\ln L) && \text{log power rule}\\
+&= L^{1/(\frac{1}{x}\ln L)} && \text{apply pli definition}\\
+&= L^{x/\ln L} && \text{simplify exponent}\\
+&= e^{(x/\ln L)\cdot \ln L} && a^b = e^{b \ln a}\\
+&= e^x && \ln L \text{ cancels}
+\end{align*}
+This holds for any $y > 1$ with $y \neq e$ (since $y = e$ gives $L = 1$, $\ln L = 0$, causing division by zero). Verified by SymPy (difference simplifies to~0) and numerically ($y = 5$, $x = \gamma$: chain matches $e^\gamma$ to 10~digits).
+
+\paragraph{Mirror image property.} EML derives $e^x$ at $K{=}3$ and $\ln x$ at $K{=}6$; PLI derives $\ln x$ at $K{=}3$ and $e^x$ at $K{=}6$. They are structural mirrors---one prioritizes the exponential, the other the logarithm.
+
+\subsection{Non-Equivalence Proof}
+
+\begin{theorem}\label{thm:nonequiv}
+$\mathrm{pli}(x,y) = (\ln x)^{1/y}$ is not equivalent to $\mathrm{eml}(x,y) = e^x - \ln y$ or $\mathrm{edl}(x,y) = e^x / \ln y$ under any combination of $T_1$--$T_5$.
+\end{theorem}
+
+\begin{proof}
+\textbf{Structural argument.} Computing partial derivatives:
+\[
+\frac{\partial}{\partial y}\,\mathrm{pli}(x,y) = -\frac{(\ln x)^{1/y} \cdot \ln(\ln x)}{y^2}
+\]
+The term $\ln(\ln x)$ (iterated logarithm) is structurally absent from all partial derivatives of EML, EDL, $-$EML, and DivLogExp, which contain only $e^x$, $1/y$, $\ln y$, or $e^y$ terms. Affine transforms ($T_4$, $T_5$) preserve the gradient structure and cannot introduce or eliminate the iterated logarithm. Argument swap ($T_1$), negation ($T_2$), and reciprocal ($T_3$) permute terms but cannot create $\ln(\ln(\cdot))$ from $\ln(\cdot)$ or $\exp(\cdot)$.
+
+\textbf{Exhaustive verification.} All 8~elements of $(\mathbb{Z}/2\mathbb{Z})^3$ (generated by $T_1, T_2, T_3$) applied to PLI were compared against EML, EDL, $-$EML, and DivLogExp in both argument orders, yielding 48~symbolic comparisons via SymPy---all return \textsc{non-equivalent}. $T_4$ (constant shift) and $T_5$ (constant multiply) were ruled out by verifying that $\mathrm{pli} - \mathrm{target}$ and $\mathrm{pli}/\mathrm{target}$ are non-constant at two algebraically independent test points. The two missing group elements ($-1/\mathrm{pli}(x,y)$, $-1/\mathrm{pli}(y,x)$) were verified separately.
+\end{proof}
+
+\begin{remark}[Hierarchy of equivalence notions]
+\label{rem:equiv_hierarchy}
+We distinguish three levels of equivalence between Sheffer operators:
+\begin{enumerate}
+\item[(a)] \emph{Affine equivalence} ($T_1$--$T_5$): PLI is proven non-equivalent to EML/EDL (Theorem~\ref{thm:nonequiv}, 48~symbolic comparisons + structural $\ln(\ln x)$ argument).
+\item[(b)] \emph{Post-compositional equivalence} ($\mathrm{op}_1 = h \circ \mathrm{op}_2$ for elementary~$h$): PLI and EML are separated by Theorem~\ref{thm:tower_separation}, since elementary post-composition shifts exponential height by a finite integer, but cannot convert the positive height of iterated EML to the negative height of iterated PLI.
+\item[(c)] \emph{Generative equivalence}: trivial. All Sheffer-complete operators generate the same closure, namely the full set of elementary functions. Therefore, equivalence defined purely by generated function classes does not distinguish between operators and is not a useful notion of equivalence in this context.
+\end{enumerate}
+Our non-equivalence results hold at levels~(a) and~(b). Level~(c) equivalence is inherent to the Sheffer property itself and does not diminish the structural distinction between operator families.
+\end{remark}
+
+\paragraph{Separation evidence.} As empirical support for structural separation beyond $T_1$--$T_5$, we enumerated all distinct complex values reachable by EML and PLI (each with constant~1) at $K \leq 7$. Out of 2{,}329 total distinct values, only 19 ($0.8\%$) appear in both sets (1{,}254 EML-only, 1{,}056 PLI-only). At $K{=}3$, the intersection is \emph{empty}---the two operators produce entirely disjoint value sets from the same seed pool. This near-total separation, while not a formal proof of non-equivalence under arbitrary composition, provides strong empirical evidence that EML and PLI explore fundamentally different regions of the elementary function space.
+
+%======================================================================
+\section{Census Results}
+%======================================================================
+
+\subsection{Level~1 (14{,}077 runs)}
+Four Sheffer hits: $\mathrm{pli} + \text{const}=1$ (35/35), $\mathrm{pli} + \text{const}=e$ (35/35), and two DivLogExp variants (equivalent to EDL via $T_1 + T_3$). Top partial hits:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lllr}
+\toprule
+Operator & Formula & Const & Found\\
+\midrule
+Divide\_ArcCos\_Cos & $\arccos(x)/\cos(y)$ & $\pi$ & 14/35\\
+Subtract\_Cos\_ArcSin & $\cos(x) - \arcsin(y)$ & 0 & 13/35\\
+Plus\_ArcSin\_Cos & $\arcsin(x) + \cos(y)$ & 0 & 13/35\\
+Times\_Exp\_Log & $e^x \cdot \ln(y)$ & $e$ & 11/35\\
+Subtract\_Inv\_Id & $1/x - y$ & 1 & 11/35\\
+\bottomrule
+\end{tabular}
+\caption{Top Level~1 partial hits ($K_{\max} = 7$).}
+\end{table}
+
+\subsection{Level~2 (635 runs after filtering)}
+Ten Sheffer hits, all equivalent to known families: 5~EML, 3~EDL, 1~PLI($y,x$), 1~EDL($y,x$). Zero new non-equivalent operators.
+
+\begin{theorem}[Three-family completeness at Levels~1--2]\label{thm:threefamily}
+Among all binary operators of the form $b(u_1(x), u_2(y))$ (Level~1) and their nested compositions (Level~2), with $b \in \{+,-,\times,/,\wedge,\log\}$ and $u_1, u_2$ from the 20~standard unary functions, there are exactly three non-equivalent Sheffer-complete families: EML, EDL, and PLI.
+\end{theorem}
+
+\begin{proof}
+The search space is defined by all operators of the form $b(u_1(x), u_2(y))$ where $b$ ranges over six standard binary operations and $u_1, u_2$ over a fixed library of 20~elementary unary functions. After eliminating syntactic redundancies, this yields 2{,}011 Level~1 candidates tested with 7~constants (14{,}077 runs). Level~2 candidates are constructed via three nested composition schemes and filtered by a 4-target sieve, yielding 635~candidates for full verification. An operator is declared Sheffer-complete if it generates all 35~target functions under the bootstrapping procedure of~\cite{odrzywołek2026}. Exactly 14~operators satisfy this criterion. Equivalence classes are computed under the transformation group generated by $T_1$--$T_5$, reducing these to three non-equivalent families: EML, EDL, and PLI. No additional candidate exceeds 14/35. All verification runs are deterministic given the same operator definition, constant set, $K_{\max}$, evaluation points, numerical precision, and tolerance threshold ($\varepsilon = 16\,\varepsilon_{\mathrm{mach}}$). The implementation and full logs are available at the project repository to ensure reproducibility.
+\end{proof}
+
+\begin{conjecture}[General three-family completeness]\label{conj:threefamily}
+We conjecture that EML, EDL, and PLI are the only Sheffer-complete families over the elementary functions at any structural level. This is supported by: (i)~the necessity of $\exp/\ln$ (Theorem~\ref{thm:expln_necessary}), (ii)~the combinatorial constraint of three non-commutative operations $\{-,/,\wedge\}$, and (iii)~the exhaustive Level~1--2 census within the defined operator space. A full proof would require a structural classification of all admissible binary operators, which remains open.
+\end{conjecture}
+
+%======================================================================
+\section{Analysis}
+%======================================================================
+
+\subsection{The 13/35 Barrier}
+
+Six targets were never generated by \emph{any} of the top~20 partial hits: ArcSinh, ArcTan, LogisticSigmoid, Sinh, Tan, and binary~Log. For the 13/35 operator $\cos(x) - \arcsin(y)$ with constant~0, the 22~missing targets partition into three blocked categories:
+\begin{enumerate}
+\item \textbf{No exponential bridge}: $e^x$, $\ln x$, $e$, and all hyperbolic functions are unreachable.
+\item \textbf{No multiplicative structure}: $\times$, $\div$, power, $1/x$, $x^2$, $\sqrt{x}$ require multiplication, which subtraction alone cannot produce.
+\item \textbf{Trig isolation}: Even $\tan = \sin/\cos$ requires division.
+\end{enumerate}
+
+We \emph{conjecture} that the exp-ln homomorphism $e^{a+b} = e^a \cdot e^b$ is necessary for Sheffer-completeness over the elementary functions: $\cos(x) - \arcsin(y)$ generates a subalgebra closed under addition and trigonometric identities, but not under multiplication. Our census data supports this conjecture (no non-exp/ln operator exceeds 14/35 coverage) but we do not provide a proof.
+
+The necessity of $\exp/\ln$ is not merely empirical. The exponential function is the unique continuous homomorphism from $(\mathbb{R},+)$ to $(\mathbb{R}_{>0},\times)$~\cite{aczel1966} (Cauchy, 1821; measurability suffices: Banach--Sierpi\'{n}ski, 1920). Since Sheffer-completeness requires generating both addition and multiplication, and no other continuous function bridges these group structures, the $\exp$--$\ln$ pair is the minimal transcendental ingredient. Theorem~\ref{thm:expln_necessary} formalizes this argument.
+
+\subsection{Depth Hierarchy}
+
+\begin{definition}\label{def:depth}
+The \emph{derivative depth} of an operator is the maximum nesting of logarithms in its partial derivatives.
+\end{definition}
+
+\begin{center}
+\small
+\begin{tabular}{clcc}
+\toprule
+Depth & Derivative structure & Example & Sheffer?\\
+\midrule
+0 & Rational & $1/(x-y)$ & No\\
+1 & Contains $\exp$/$\ln$ & EML, EDL & Yes\\
+2 & Contains $\ln(\ln x)$ & PLI & Yes\\
+$\geq 3$ & Contains $\ln(\ln(\ln x))$ & $(\ln(\ln x))^{1/y}$ & No ($\leq 6/35$)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Observation.} At $K_{\max} = 7$, all tested depth-$\geq 3$ candidates achieve at most $6/35$ targets. Re-testing at $K_{\max} = 9$ yields at most $2/35$---no improvement. Whether a depth-$\geq 3$ Sheffer operator exists remains open, but the evidence strongly disfavors it.
+
+\subsection{Numerical Stability}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Metric & EML & EDL & DLE & PLI\\
+\midrule
+Failure rate & \textbf{29.6\%} & 38.3\% & 34.8\% & \textbf{55.4\%}\\
+Mean rel.\ err. & \textbf{3.48e-10} & 9.19e-9 & 8.71e-9 & 1.51e-8\\
+Max rel.\ err. & 8.27e-8 & 8.27e-8 & 8.27e-8 & \textbf{8.27e-7}\\
+p99 digits lost & \textbf{1.4} & 8.6 & 8.6 & \textbf{9.6}\\
+\bottomrule
+\end{tabular}
+\caption{Stability on 729-point grid (mpmath 50-digit reference). PLI's 164~complex-result failures (negative base with non-integer exponent) account for its high failure rate.}
+\end{table}
+
+\paragraph{Sin cascade.} Computing $\sin(1.0)$ via the full bootstrapping chain (constant $\to$ exp/ln $\to$ arithmetic $\to$ $i$ $\to$ $\pi$ $\to$ Euler formula), where derived functions are cached and reused rather than expanded as pure operator trees: all four operators achieve 15.9--16.0 correct digits (machine precision). PLI loses 0.1~digit due to its 3-nested exp chain.
+
+\subsection{Computational Cost}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrr}
+\toprule
+& EML (ns) & PLI (ns)\\
+\midrule
+Raw operator & 30.5 & 42.2 (1.38$\times$)\\
+$\exp(x)$ chain & 9.8 & 108.0 (11.0$\times$)\\
+$\ln(x)$ chain & 73.1 & \textbf{24.0} (0.33$\times$)\\
+$x + y$ chain & 123.3 & 256.0 (2.1$\times$)\\
+$x \cdot y$ chain & 169.5 & 333.7 (2.0$\times$)\\
+$x / y$ chain & 265.4 & 415.0 (1.6$\times$)\\
+\bottomrule
+\end{tabular}
+\caption{Empirical benchmarks (x86\_64, AMD Ryzen 9 9950X3D, Windows~11, Rust~1.94.1, release build, opt-level=3). PLI derives $\ln(x)$ 3$\times$ faster (1~call vs 3) but $\exp(x)$ 11$\times$ slower (3~nested calls vs 1). EDL and DivLogExp are indistinguishable from EML at ${\sim}30$\,ns ($< 2\%$ difference), contradicting the synthetic model's predicted 17\% gap.}
+\end{table}
+
+\subsection{Theoretical Foundations}
+
+We outline arguments using classical results from differential algebra and Hardy field theory that place our computational findings on rigorous mathematical ground.
+
+\begin{theorem}\label{thm:expln_necessary}
+No binary operator whose definition and bootstrapping chain involve only algebraic functions can be Sheffer-complete over the elementary functions.
+\end{theorem}
+
+\begin{proof}
+Three-step argument from classical results:
+
+\emph{Step~1.} Algebraic functions are closed under composition. If $f$ satisfies $P(x,f(x))=0$ and $g$ satisfies $Q(x,g(x))=0$ for polynomials $P,Q$, then $f \circ g$ satisfies a polynomial equation obtainable by resultant elimination. The algebraic functions over $\mathbb{C}(x)$ form a field closed under composition~\cite{bronstein2005}.
+
+\emph{Step~2.} The exponential function is transcendental over $\mathbb{C}(x)$: no nonzero polynomial $P(x,y) \in \mathbb{C}[x,y]$ satisfies $P(x,e^x) \equiv 0$. This is strengthened by the Ax--Schanuel theorem~\cite{ax1971}, which establishes maximal algebraic independence of exponentials.
+
+\emph{Step~3.} Therefore no finite composition of algebraic functions produces $\exp$. Since the Liouville--Ritt tower structure of elementary functions~\cite{rosenlicht1972} permits only algebraic, exponential, and logarithmic extension steps, any Sheffer-complete operator must generate $\exp$ and $\ln$, which requires transcendental content in the operator itself.
+
+This is consistent with our census data: no operator without $\exp$ or $\ln$ in its definition achieves more than 14/35 coverage (Section~5.1).
+\end{proof}
+
+\begin{theorem}\label{thm:tower_separation}
+EML and PLI generate functions in structurally distinct components of the Hardy field filtration, characterized by opposite exponential heights.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The \emph{exponential height} $\mathrm{eh}(f)$ from Hardy field theory~\cite{hardy1910,rosenlicht1983,vdDMM2001} assigns $\mathrm{eh}(\exp_n(x)) = n$ and $\mathrm{eh}(\log_n(x)) = -n$. For pure germs, $\mathrm{eh}$ is additive under composition (following the framework of~\cite{vdDMM2001}).
+
+EML iteration increases exponential nesting ($\mathrm{eh}$ increases by $+1$ per iteration), while PLI iteration increases logarithmic nesting ($\mathrm{eh}$ decreases by $-1$). These occupy opposite sides of the Hardy field direct-sum decomposition.
+
+Three independent invariants confirm the separation:
+\begin{enumerate}
+\item \emph{Exponential height}: positive (EML) vs.\ negative (PLI).
+\item \emph{Hardy field rank}~\cite{rosenlicht1983}: $+1$ per exponential step vs.\ $0$ per logarithmic step.
+\item \emph{Differential Galois group}~\cite{putSinger2003}: $\mathbb{G}_m$ (multiplicative, for exponential extensions) vs.\ $\mathbb{G}_a$ (additive, for logarithmic extensions). These are non-isomorphic algebraic groups.
+\end{enumerate}
+This subsumes the $T_1$--$T_5$ non-equivalence proof (Theorem~\ref{thm:nonequiv}) as a special case: no affine transformation can convert a function of positive exponential height into one of negative height.
+\end{proof}
+
+We emphasize that Theorems~\ref{thm:expln_necessary} and~\ref{thm:tower_separation} apply existing mathematical results to the Sheffer operator setting; the novelty is the application, not the underlying mathematics.
+
+%======================================================================
+\section{Discussion}
+%======================================================================
+
+EML remains the optimal Sheffer operator on all practical axes: lowest raw cost, highest numerical stability, and simplest bootstrapping chain. PLI's contribution is \emph{structural}, not computational---it demonstrates that the Sheffer property is not unique to the subtraction/division structure of EML/EDL, but extends to power-based operators with iterated logarithmic structure.
+
+The constant-free Sheffer operator (requiring no companion constant) remains an open problem. Operators producing constants via $\mathrm{op}(x,x) = c$ exist (e.g., $x \cdot (1/x) = 1$) but none achieves more than 9/35 targets.
+
+Tao's MathOverflow construction~\cite{tao_mo} implies infinitely many Sheffer operators exist. Our census suggests they cluster into a small number of \emph{families} (three at Levels~1--2), each characterized by its derivative depth. Whether a depth-$\geq 3$ Sheffer operator exists at higher $K_{\max}$ remains open.
+
+The tower-direction framework (Theorem~\ref{thm:tower_separation}) suggests a classification program for Sheffer operators by their exponential height signature. Our census finds Sheffer operators at heights $+1$ (EML/EDL) and $-1$ (PLI) but not at $|{\mathrm{height}}| \geq 2$. Whether this bound is fundamental or an artifact of $K_{\max}$ limitations remains open. The transseries framework of Aschenbrenner--van den Dries--van der Hoeven (2017) provides natural language for formalizing this question.
+
+\subsection*{Limitations}
+\begin{enumerate}
+\item Our Sheffer-completeness criterion is operational (finite target set), not algebraic (function class closure).
+\item Non-equivalence is proven under $T_1$--$T_5$ only; a broader equivalence relation might identify PLI with an EML variant (see Remark after Theorem~\ref{thm:nonequiv}).
+\item The census explores ${<}\,0.01\%$ of the infinite operator space.
+\item The depth hierarchy is empirical at $K_{\max}{=}7$; higher $K_{\max}$ might yield depth-3 Sheffer operators.
+\item Numerical verification uses double-precision floating point; edge cases near branch cuts are not exhaustive.
+\end{enumerate}
+
+%======================================================================
+\section{Conclusion}
+%======================================================================
+
+We discovered PowerLogInv, $\mathrm{pli}(x,y) = (\ln x)^{1/y}$, the first continuous Sheffer operator proven non-equivalent to the EML family. A computational census of 14{,}712 verification runs across two structural levels identifies three operator families within the explored space. The 13/35~barrier analysis suggests that the exp-ln homomorphism is the essential structural ingredient for Sheffer-ness, explaining why all known Sheffer operators are built from exponentials and logarithms.
+
+%======================================================================
+\paragraph{Data availability.} Code and data at: \url{https://github.com/[redacted]/project-iceberg}.\footnote{Repository will be made public upon publication.}
+
+\paragraph{Acknowledgments.} We thank Andrzej Odrzywołek for the foundational EML discovery and the open-source verification code that made this census possible.
+
+\begin{thebibliography}{9}
+
+\bibitem{odrzywołek2026}
+A.~Odrzywołek, ``All elementary functions from a single binary operator,'' \emph{arXiv:2603.21852v2}, 2026.
+
+\bibitem{sheffer1913}
+H.~M.~Sheffer, ``A set of five independent postulates for Boolean algebras,'' \emph{Trans.\ Amer.\ Math.\ Soc.}, vol.~14, pp.~481--488, 1913.
+
+\bibitem{tao_mo}
+T.~Tao, answer to ``Can we unify addition and multiplication into one binary operation?'', MathOverflow Q57465, \url{https://mathoverflow.net/questions/57465}.
+
+\bibitem{webb1935}
+D.~L.~Webb, ``Generation of any $N$-valued logic by one binary operation,'' \emph{Proc.\ Natl.\ Acad.\ Sci.}, vol.~21, no.~5, pp.~252--254, 1935.
+
+\bibitem{odrzywołek_code}
+A.~Odrzywołek, SymbolicRegressionPackage, \url{https://github.com/VA00/SymbolicRegressionPackage}, 2026.
+
+\bibitem{rosenlicht1972}
+M.~Rosenlicht, ``Integration in finite terms,'' \emph{Amer.\ Math.\ Monthly}, vol.~79, pp.~963--972, 1972.
+
+\bibitem{bronstein2005}
+M.~Bronstein, \emph{Symbolic Integration I: Transcendental Functions}, Springer, 2005.
+
+\bibitem{hardy1910}
+G.~H.~Hardy, \emph{Orders of Infinity}, Cambridge, 1910.
+
+\bibitem{rosenlicht1983}
+M.~Rosenlicht, ``The rank of a Hardy field,'' \emph{Trans.\ Amer.\ Math.\ Soc.}, vol.~280, pp.~659--671, 1983.
+
+\bibitem{vdDMM2001}
+L.~van den Dries, A.~Macintyre, D.~Marker, ``Logarithmic-exponential series,'' \emph{Annals Pure Appl.\ Logic}, vol.~111, pp.~61--113, 2001.
+
+\bibitem{putSinger2003}
+M.~van der Put, M.~F.~Singer, \emph{Galois Theory of Linear Differential Equations}, Springer, 2003.
+
+\bibitem{aczel1966}
+J.~Acz\'{e}l, \emph{Lectures on Functional Equations and Their Applications}, Academic Press, 1966.
+
+\bibitem{ax1971}
+J.~Ax, ``On Schanuel's conjectures,'' \emph{Annals of Math.}, vol.~93, pp.~252--268, 1971.
+
+\end{thebibliography}
+
+\end{document}

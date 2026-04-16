@@ -1,0 +1,22 @@
+{
+  "platform": "x86_64 Windows 11, Rust 1.94.1, release build, opt-level=3",
+  "date": "2026-04-15",
+  "raw_operator_ns": {
+    "EML": 30.5,
+    "EDL": 29.9,
+    "DivLogExp": 30.2,
+    "PowerLogInv": 42.2
+  },
+  "chain_ns": {
+    "exp":   {"EML": 9.8,   "PLI": 108.0},
+    "ln":    {"EML": 73.1,  "PLI": 24.0},
+    "plus":  {"EML": 123.3, "PLI": 256.0},
+    "times": {"EML": 169.5, "PLI": 333.7},
+    "div":   {"EML": 265.4, "PLI": 415.0}
+  },
+  "ratios_vs_eml": {
+    "EDL": 0.98,
+    "DivLogExp": 0.99,
+    "PowerLogInv": 1.38
+  }
+}

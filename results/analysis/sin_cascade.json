@@ -1,0 +1,178 @@
+{
+  "investigation": "Investigation 5: Deep Tree Precision Cascade",
+  "description": "sin(1.0) computed via full bootstrapping chain for each Sheffer operator",
+  "reference_sin_1": 0.8414709848078965,
+  "reference_exp_1": 2.718281828459045,
+  "reference_ln_2": 0.6931471805599453,
+  "timestamp": "2026-04-15T22:37:50.049216",
+  "operators": {
+    "EML": {
+      "exp(1)": {
+        "chain_value_real": 2.718281828459045,
+        "chain_value_imag": 0.0,
+        "reference_real": 2.718281828459045,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "ln(2)": {
+        "chain_value_real": 0.6931471805599454,
+        "chain_value_imag": 0.0,
+        "reference_real": 0.6931471805599453,
+        "reference_imag": 0.0,
+        "absolute_error": 1.1102230246251565e-16,
+        "digits_correct": 15.8
+      },
+      "1+1": {
+        "chain_value_real": 2.0,
+        "chain_value_imag": -1.2246467991473532e-16,
+        "reference_real": 2.0,
+        "reference_imag": 0.0,
+        "absolute_error": 1.2246467991473532e-16,
+        "digits_correct": 16.21
+      },
+      "2*3": {
+        "chain_value_real": 6.000000000000001,
+        "chain_value_imag": 0.0,
+        "reference_real": 6.0,
+        "reference_imag": 0.0,
+        "absolute_error": 8.881784197001252e-16,
+        "digits_correct": 15.83
+      },
+      "sin(1)": {
+        "chain_value_real": 0.8414709848078965,
+        "chain_value_imag": 0.0,
+        "reference_real": 0.8414709848078965,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      }
+    },
+    "EDL": {
+      "exp(1)": {
+        "chain_value_real": 2.718281828459045,
+        "chain_value_imag": 0.0,
+        "reference_real": 2.718281828459045,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "ln(2)": {
+        "chain_value_real": 0.6931471805599453,
+        "chain_value_imag": 0.0,
+        "reference_real": 0.6931471805599453,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "1+1": {
+        "chain_value_real": 2.0,
+        "chain_value_imag": 0.0,
+        "reference_real": 2.0,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "2*3": {
+        "chain_value_real": 6.0,
+        "chain_value_imag": 0.0,
+        "reference_real": 6.0,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "sin(1)": {
+        "chain_value_real": 0.8414709848078965,
+        "chain_value_imag": 0.0,
+        "reference_real": 0.8414709848078965,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      }
+    },
+    "DivLogExp": {
+      "exp(1)": {
+        "chain_value_real": 2.718281828459045,
+        "chain_value_imag": 0.0,
+        "reference_real": 2.718281828459045,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "ln(2)": {
+        "chain_value_real": 0.6931471805599453,
+        "chain_value_imag": 0.0,
+        "reference_real": 0.6931471805599453,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "1+1": {
+        "chain_value_real": 2.0,
+        "chain_value_imag": -2.4492935982947064e-16,
+        "reference_real": 2.0,
+        "reference_imag": 0.0,
+        "absolute_error": 2.4492935982947064e-16,
+        "digits_correct": 15.91
+      },
+      "2*3": {
+        "chain_value_real": 5.999999999999999,
+        "chain_value_imag": 0.0,
+        "reference_real": 6.0,
+        "reference_imag": 0.0,
+        "absolute_error": 8.881784197001252e-16,
+        "digits_correct": 15.83
+      },
+      "sin(1)": {
+        "chain_value_real": 0.8414709848078965,
+        "chain_value_imag": 0.0,
+        "reference_real": 0.8414709848078965,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      }
+    },
+    "PowerLogInv": {
+      "exp(1)": {
+        "chain_value_real": 2.718281828459045,
+        "chain_value_imag": 0.0,
+        "reference_real": 2.718281828459045,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "ln(2)": {
+        "chain_value_real": 0.6931471805599453,
+        "chain_value_imag": 0.0,
+        "reference_real": 0.6931471805599453,
+        "reference_imag": 0.0,
+        "absolute_error": 0.0,
+        "digits_correct": 16.0
+      },
+      "1+1": {
+        "chain_value_real": 1.9999999999999956,
+        "chain_value_imag": -2.449293598294695e-16,
+        "reference_real": 2.0,
+        "reference_imag": 0.0,
+        "absolute_error": 4.447641287450211e-15,
+        "digits_correct": 14.65
+      },
+      "2*3": {
+        "chain_value_real": 6.000000000000004,
+        "chain_value_imag": 0.0,
+        "reference_real": 6.0,
+        "reference_imag": 0.0,
+        "absolute_error": 4.440892098500626e-15,
+        "digits_correct": 15.13
+      },
+      "sin(1)": {
+        "chain_value_real": 0.8414709848078964,
+        "chain_value_imag": 0.0,
+        "reference_real": 0.8414709848078965,
+        "reference_imag": 0.0,
+        "absolute_error": 1.1102230246251565e-16,
+        "digits_correct": 15.88
+      }
+    }
+  }
+}

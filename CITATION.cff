@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "Project Iceberg: Computational Census of Continuous Sheffer Operators"
+message: "If you use this software, please cite our paper."
+type: software
+authors:
+  - given-names: SangHyeok
+    family-names: Jeong
+    orcid: "https://orcid.org/0000-0002-9458-0792"
+    affiliation: "Institute for Advanced Engineering"
+repository-code: "https://github.com/[username]/project-iceberg"
+license: MIT
+version: 1.0.0
+date-released: "2026-04-16"

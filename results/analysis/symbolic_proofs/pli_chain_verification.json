@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "script": "sympy_pli_chain.py",
+    "timestamp": "2026-04-15T11:59:45.775808Z",
+    "sympy_version": "1.14.0",
+    "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]"
+  },
+  "derivations": [
+    {
+      "id": 1,
+      "name": "ln(x) from PLI",
+      "expression": "PLI(x, 1)",
+      "target": "ln(x)",
+      "expr_str": "log(x)",
+      "simplified_str": "log(x)",
+      "difference": "0",
+      "status": "PASS"
+    },
+    {
+      "id": 2,
+      "name": "x^y (Power) from PLI",
+      "expression": "PLI(Exp(x), Inv(y))",
+      "target": "x**y",
+      "ln_exp_x_step": "x",
+      "expr_str": "x**y",
+      "simplified_str": "x**y",
+      "difference": "0",
+      "status": "PASS"
+    },
+    {
+      "id": 3,
+      "name": "x*y (Times) from Power",
+      "expression": "Log(Power(Exp(x), y))",
+      "target": "x*y",
+      "expr_str": "x*y",
+      "simplified_str": "x*y",
+      "difference": "0",
+      "status": "PASS"
+    },
+    {
+      "id": 4,
+      "name": "x-y (Subtract) from Divide",
+      "expression": "Log(Divide(Exp(x), Exp(y)))",
+      "target": "x - y",
+      "expr_str": "log(exp(x)*exp(-y))",
+      "simplified_str": "x - y",
+      "difference": "0",
+      "status": "PASS"
+    },
+    {
+      "id": 5,
+      "name": "x+y (Plus) from Subtract and Minus",
+      "expression": "Subtract(x, Minus(y))",
+      "target": "x + y",
+      "minus_y_raw": "-y",
+      "minus_y_simplified": "-y",
+      "expr_str": "log(exp(x)*exp(y))",
+      "simplified_str": "x + y",
+      "difference": "0",
+      "status": "PASS"
+    }
+  ],
+  "real_domain_checks": [
+    {
+      "expression": "ln(exp(x))",
+      "simplified": "x",
+      "imaginary_part": "0",
+      "status": "PASS"
+    },
+    {
+      "expression": "x^y",
+      "simplified": "x**y",
+      "imaginary_part": "0",
+      "status": "PASS"
+    },
+    {
+      "expression": "exp(x)^y",
+      "simplified": "exp(x*y)",
+      "imaginary_part": "0",
+      "status": "PASS"
+    },
+    {
+      "expression": "exp(x)/exp(y)",
+      "simplified": "exp(x - y)",
+      "imaginary_part": "0",
+      "status": "PASS"
+    },
+    {
+      "expression": "ln(exp(x)/exp(y))",
+      "simplified": "x - y",
+      "imaginary_part": "0",
+      "status": "PASS"
+    },
+    {
+      "expression": "ln(1/exp(y))",
+      "simplified": "-y",
+      "imaginary_part": "0",
+      "status": "PASS"
+    }
+  ],
+  "summary": {
+    "derivations_pass": 5,
+    "derivations_total": 5,
+    "real_checks_pass": 6,
+    "real_checks_total": 6,
+    "all_derivations_pass": true,
+    "all_real_checks_pass": true,
+    "overall": "PASS"
+  }
+}
