@@ -24,7 +24,7 @@ Institute for Advanced Engineering, Gyeonggi-do, Republic of Korea\\
 \maketitle
 
 \begin{abstract}
-Odrzywołek~\cite{odrzywołek2026} showed that $\mathrm{eml}(x,y) = e^x - \ln y$, together with the constant~$1$, generates all 36~elementary function primitives of a scientific calculator. We discover \textbf{PowerLogInv} (PLI), $\mathrm{pli}(x,y) = (\ln x)^{1/y}$, a new continuous Sheffer operator that is \emph{non-equivalent} to the known EML/EDL family under argument swap, negation, reciprocal, and affine transforms. Non-equivalence is proven via the iterated logarithm $\ln(\ln x)$ appearing in PLI's partial derivative structure but absent from all EML/EDL variants. A systematic computational census of 14{,}712 verification runs across two structural levels finds three operator families (EML, EDL, PLI) within the explored space. We identify a \emph{depth hierarchy}: Sheffer operators exist at derivative depths~1--2 but not~0 or~$\geq 3$. We characterize the \emph{13/35 barrier} preventing non-exp/ln operators from achieving Sheffer-ness: the closure of trigonometric-additive operators cannot bridge to multiplicative structure without the exp-ln homomorphism. Empirical benchmarks show EML dominates all variants in both cost ($30.5$\,ns/op) and numerical stability (mean relative error $3.48 \times 10^{-10}$).
+Odrzywołek~\cite{odrzywołek2026} showed that $\mathrm{eml}(x,y) = e^x - \ln y$, together with the constant~$1$, generates all 36~elementary function primitives of a scientific calculator. We discover \textbf{PowerLogInv} (PLI), $\mathrm{pli}(x,y) = (\ln x)^{1/y}$, a new continuous Sheffer operator that is \emph{non-equivalent} to the known EML/EDL family under argument swap, negation, reciprocal, and affine transforms. Non-equivalence is proven via the iterated logarithm $\ln(\ln x)$ appearing in PLI's partial derivative structure but absent from all EML/EDL variants. A systematic computational census of 14{,}712 verification runs across two structural levels finds three operator families (EML, EDL, PLI) within the explored space. We identify a \emph{depth hierarchy}: Sheffer operators exist at derivative depths~1--2 but not~0 or~$\geq 3$. We characterize the \emph{13/35 barrier} preventing non-exp/ln operators from achieving Sheffer-ness: the closure of trigonometric-additive operators cannot bridge to multiplicative structure without the exp-ln homomorphism. Empirical benchmarks show EML dominates all variants in both cost ($30.5$\,ns/op) and numerical stability (mean relative error $3.48 \times 10^{-10}$). PLI is not proposed as a practical alternative to EML; its value is taxonomic, expanding the known structural diversity of Sheffer operators.
 \end{abstract}
 
 %======================================================================
@@ -63,7 +63,7 @@ We enumerate candidate operators $\mathrm{op}(x,y)$ at two structural levels:
 \item \textbf{Level~2}: Three types of nested composition---left nesting $b(u_1(u_2(x)), u_3(y))$, right nesting $b(u_1(x), u_2(u_3(y)))$, and outer wrapping $u_0(b(u_1(x), u_2(y)))$---yielding 120{,}700 candidates. A 3-stage screening pipeline (Python $K_{\max}{=}3$ sieve $\to$ Rust $K_{\max}{=}7$ verification $\to$ equivalence analysis) reduces this to 635 candidates for full verification.
 \end{itemize}
 
-The 20~unary functions coincide with the unary primitives of~\cite{odrzywołek2026} (Table~1): $\exp$, $\ln$, $\sin$, $\cos$, $\tan$, $\arcsin$, $\arccos$, $\arctan$, $\sinh$, $\cosh$, $\tanh$, $\mathrm{arsinh}$, $\mathrm{arcosh}$, $\mathrm{artanh}$, $\sqrt{\cdot}$, $(\cdot)^2$, $1/(\cdot)$, $-(\cdot)$, $(\cdot)/2$, and the logistic sigmoid~$\sigma$. This library is complete in the sense that every standard scientific-calculator unary function is either in this set or derivable from it; extending the library with composed unary functions (e.g., $\exp \circ \ln$) would produce candidates already covered by the Level~2 search.
+The 20~unary functions are not chosen by us but match verbatim the unary primitives of Odrzywołek~\cite{odrzywołek2026} (Table~1, the established reference set for this problem): $\exp$, $\ln$, $\sin$, $\cos$, $\tan$, $\arcsin$, $\arccos$, $\arctan$, $\sinh$, $\cosh$, $\tanh$, $\mathrm{arsinh}$, $\mathrm{arcosh}$, $\mathrm{artanh}$, $\sqrt{\cdot}$, $(\cdot)^2$, $1/(\cdot)$, $-(\cdot)$, $(\cdot)/2$, and the logistic sigmoid~$\sigma$. This library is complete in the sense that every standard scientific-calculator unary function is either in this set or derivable from it; extending the library with composed unary functions (e.g., $\exp \circ \ln$) would produce candidates already covered by the Level~2 search.
 
 \subsection{Equivalence Criteria}
 
@@ -140,6 +140,11 @@ We distinguish three levels of equivalence between Sheffer operators:
 \item[(b)] \emph{Post-compositional equivalence} ($\mathrm{op}_1 = h \circ \mathrm{op}_2$ for elementary~$h$): PLI and EML are separated by Theorem~\ref{thm:tower_separation}, since elementary post-composition shifts exponential height by a finite integer, but cannot convert the positive height of iterated EML to the negative height of iterated PLI.
 \item[(c)] \emph{Generative equivalence}: trivial. All Sheffer-complete operators generate the same closure, namely the full set of elementary functions. Therefore, equivalence defined purely by generated function classes does not distinguish between operators and is not a useful notion of equivalence in this context.
 \end{enumerate}
+
+\smallskip
+\noindent The notion of \emph{topological conjugacy}---existence of a homeomorphism $\phi$ with $\mathrm{op}_1 = \phi^{-1} \circ \mathrm{op}_2 \circ \phi$---sits between levels~(b) and~(c) and constitutes a natural deeper equivalence. Resolving topological conjugacy of PLI and EML requires methods from Picard--Vessiot theory and Hardy field model theory beyond the scope of a discovery-oriented paper. We treat this as an explicit open problem.
+
+\smallskip
 Our non-equivalence results hold at levels~(a) and~(b). Level~(c) equivalence is inherent to the Sheffer property itself and does not diminish the structural distinction between operator families.
 \end{remark}
 
@@ -180,6 +185,10 @@ Among all binary operators of the form $b(u_1(x), u_2(y))$ (Level~1) and their n
 The search space is defined by all operators of the form $b(u_1(x), u_2(y))$ where $b$ ranges over six standard binary operations and $u_1, u_2$ over a fixed library of 20~elementary unary functions. After eliminating syntactic redundancies, this yields 2{,}011 Level~1 candidates tested with 7~constants (14{,}077 runs). Level~2 candidates are constructed via three nested composition schemes and filtered by a 4-target sieve, yielding 635~candidates for full verification. An operator is declared Sheffer-complete if it generates all 35~target functions under the bootstrapping procedure of~\cite{odrzywołek2026}. Exactly 14~operators satisfy this criterion. Equivalence classes are computed under the transformation group generated by $T_1$--$T_5$, reducing these to three non-equivalent families: EML, EDL, and PLI. No additional candidate exceeds 14/35. All verification runs are deterministic given the same operator definition, constant set, $K_{\max}$, evaluation points, numerical precision, and tolerance threshold ($\varepsilon = 16\,\varepsilon_{\mathrm{mach}}$). The implementation and full logs are available at the project repository to ensure reproducibility.
 \end{proof}
 
+\begin{remark}[Computational proof methodology]
+Theorem~\ref{thm:threefamily} is established in the epistemic style of computer-verified theorems such as the Four-Color Theorem~\cite{appel_haken_1976}: a finite, exhaustively enumerable space is verified by a deterministic algorithm. We do not claim such verification establishes the general conjecture (Conjecture~\ref{conj:threefamily}); the latter requires structural classification methods beyond exhaustive search.
+\end{remark}
+
 \begin{conjecture}[General three-family completeness]\label{conj:threefamily}
 We conjecture that EML, EDL, and PLI are the only Sheffer-complete families over the elementary functions at any structural level. This is supported by: (i)~the necessity of $\exp/\ln$ (Theorem~\ref{thm:expln_necessary}), (ii)~the combinatorial constraint of three non-commutative operations $\{-,/,\wedge\}$, and (iii)~the exhaustive Level~1--2 census within the defined operator space. A full proof would require a structural classification of all admissible binary operators, which remains open.
 \end{conjecture}
@@ -200,6 +209,9 @@ Six targets were never generated by \emph{any} of the top~20 partial hits: ArcSi
 We \emph{conjecture} that the exp-ln homomorphism $e^{a+b} = e^a \cdot e^b$ is necessary for Sheffer-completeness over the elementary functions: $\cos(x) - \arcsin(y)$ generates a subalgebra closed under addition and trigonometric identities, but not under multiplication. Our census data supports this conjecture (no non-exp/ln operator exceeds 14/35 coverage) but we do not provide a proof.
 
 The necessity of $\exp/\ln$ is not merely empirical. The exponential function is the unique continuous homomorphism from $(\mathbb{R},+)$ to $(\mathbb{R}_{>0},\times)$~\cite{aczel1966} (Cauchy, 1821; measurability suffices: Banach--Sierpi\'{n}ski, 1920). Since Sheffer-completeness requires generating both addition and multiplication, and no other continuous function bridges these group structures, the $\exp$--$\ln$ pair is the minimal transcendental ingredient. Theorem~\ref{thm:expln_necessary} formalizes this argument.
+
+\smallskip
+A natural objection is whether some non-exp/ln transcendental function might serve as an alternative additive--multiplicative bridge---for instance, hyperbolic identities such as $\sinh(x+y) = \sinh(x)\cosh(y) + \cosh(x)\sinh(y)$ relate addition to multiplication. However, all such elementary candidates ultimately reduce to $\exp/\ln$ by definition: $\sinh(x) = (e^x - e^{-x})/2$, $\cosh(x) = (e^x + e^{-x})/2$, and similarly for trigonometric and inverse functions over~$\mathbb{C}$. Within the elementary function class, $\exp$ and $\ln$ are the only algebraically independent transcendentals (Liouville--Ritt tower; see Theorem~\ref{thm:expln_necessary}). The conjecture therefore restricts to the precise statement: \emph{no elementary operator without $\exp/\ln$ in its bootstrapping chain achieves Sheffer-completeness}.
 
 \subsection{Depth Hierarchy}
 
@@ -288,9 +300,17 @@ EML and PLI generate functions in structurally distinct components of the Hardy 
 \end{theorem}
 
 \begin{proof}[Proof sketch]
-The \emph{exponential height} $\mathrm{eh}(f)$ from Hardy field theory~\cite{hardy1910,rosenlicht1983,vdDMM2001} assigns $\mathrm{eh}(\exp_n(x)) = n$ and $\mathrm{eh}(\log_n(x)) = -n$. For pure germs, $\mathrm{eh}$ is additive under composition (following the framework of~\cite{vdDMM2001}).
+Hardy field exponential height $\mathrm{eh}(f)$ is defined for single-variable germs $f$ at $+\infty$. We extend the analysis to multivariate operators via \emph{partial evaluation}.
 
-EML iteration increases exponential nesting ($\mathrm{eh}$ increases by $+1$ per iteration), while PLI iteration increases logarithmic nesting ($\mathrm{eh}$ decreases by $-1$). These occupy opposite sides of the Hardy field direct-sum decomposition.
+For an iterated composition such as $\mathrm{PLI}(\mathrm{PLI}(x,y),z)$, fix $y, z$ to specific values $y_0, z_0 > 1$ with $y_0 \neq e$, yielding the single-variable germ
+\[
+g_{y_0, z_0}(x) := \mathrm{PLI}(\mathrm{PLI}(x, y_0), z_0).
+\]
+This germ lies in a Hardy field extension of $\mathbb{R}(x)$ obtained by adjoining the relevant transcendental elements~\cite{vdDMM2001}. The exponential height $\mathrm{eh}(g_{y_0, z_0})$ is well-defined, and direct computation shows that each iteration of PLI strictly decreases this height (introducing one additional logarithmic nesting per iteration).
+
+The analogous construction for EML yields germs $h_{y_0, z_0}(x)$ whose exponential height strictly \emph{increases} with each iteration.
+
+The non-equivalence claim then reads: there exists no elementary post-composition $H$ such that $H \circ \mathrm{EML}$ and PLI yield partial-evaluation germs of identical exponential height. Since elementary post-composition shifts $\mathrm{eh}$ by a finite integer, and EML iteration drives $\mathrm{eh} \to +\infty$ while PLI drives $\mathrm{eh} \to -\infty$, no finite $H$ can bridge the gap.
 
 Three independent invariants confirm the separation:
 \begin{enumerate}
@@ -298,7 +318,7 @@ Three independent invariants confirm the separation:
 \item \emph{Hardy field rank}~\cite{rosenlicht1983}: $+1$ per exponential step vs.\ $0$ per logarithmic step.
 \item \emph{Differential Galois group}~\cite{putSinger2003}: $\mathbb{G}_m$ (multiplicative, for exponential extensions) vs.\ $\mathbb{G}_a$ (additive, for logarithmic extensions). These are non-isomorphic algebraic groups.
 \end{enumerate}
-This subsumes the $T_1$--$T_5$ non-equivalence proof (Theorem~\ref{thm:nonequiv}) as a special case: no affine transformation can convert a function of positive exponential height into one of negative height.
+This subsumes the $T_1$--$T_5$ non-equivalence proof (Theorem~\ref{thm:nonequiv}) as a special case.
 \end{proof}
 
 We emphasize that Theorems~\ref{thm:expln_necessary} and~\ref{thm:tower_separation} apply existing mathematical results to the Sheffer operator setting; the novelty is the application, not the underlying mathematics.
@@ -308,6 +328,8 @@ We emphasize that Theorems~\ref{thm:expln_necessary} and~\ref{thm:tower_separati
 %======================================================================
 
 EML remains the optimal Sheffer operator on all practical axes: lowest raw cost, highest numerical stability, and simplest bootstrapping chain. PLI's contribution is \emph{structural}, not computational---it demonstrates that the Sheffer property is not unique to the subtraction/division structure of EML/EDL, but extends to power-based operators with iterated logarithmic structure.
+
+Mitigating PLI's high failure rate ($55.4\%$, primarily from negative bases with non-integer exponents) would require either restriction to the principal branch of the complex power function or explicit branch-cut handling. We do not pursue these mitigations here, since PLI's contribution lies in structural taxonomy rather than numerical practicality.
 
 The constant-free Sheffer operator (requiring no companion constant) remains an open problem. Operators producing constants via $\mathrm{op}(x,x) = c$ exist (e.g., $x \cdot (1/x) = 1$) but none achieves more than 9/35 targets.
 
@@ -328,7 +350,7 @@ The tower-direction framework (Theorem~\ref{thm:tower_separation}) suggests a cl
 \section{Conclusion}
 %======================================================================
 
-We discovered PowerLogInv, $\mathrm{pli}(x,y) = (\ln x)^{1/y}$, the first continuous Sheffer operator proven non-equivalent to the EML family. A computational census of 14{,}712 verification runs across two structural levels identifies three operator families within the explored space. The 13/35~barrier analysis suggests that the exp-ln homomorphism is the essential structural ingredient for Sheffer-ness, explaining why all known Sheffer operators are built from exponentials and logarithms.
+We discovered PowerLogInv, $\mathrm{pli}(x,y) = (\ln x)^{1/y}$, the first continuous Sheffer operator proven non-equivalent to the EML family. We do not advocate PLI for computational use. Its discovery establishes that the Sheffer property admits structurally distinct families beyond the subtraction/division paradigm, expanding the operator taxonomy without claiming practical superiority. A computational census of 14{,}712 verification runs across two structural levels identifies three operator families within the explored space. The 13/35~barrier analysis suggests that the exp-ln homomorphism is the essential structural ingredient for Sheffer-ness, explaining why all known Sheffer operators are built from exponentials and logarithms.
 
 %======================================================================
 \paragraph{Data availability.} Code and data at: \url{https://github.com/iae-control/project-iceberg}.
@@ -378,6 +400,9 @@ J.~Acz\'{e}l, \emph{Lectures on Functional Equations and Their Applications}, Ac
 
 \bibitem{ax1971}
 J.~Ax, ``On Schanuel's conjectures,'' \emph{Annals of Math.}, vol.~93, pp.~252--268, 1971.
+
+\bibitem{appel_haken_1976}
+K.~Appel, W.~Haken, ``Every planar map is four colorable,'' \emph{Bull.\ Amer.\ Math.\ Soc.}, vol.~82, pp.~711--712, 1976.
 
 \end{thebibliography}
 
