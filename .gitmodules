@@ -1,0 +1,3 @@
+[submodule "src/author_repo"]
+	path = src/author_repo
+	url = https://github.com/VA00/SymbolicRegressionPackage.git
