@@ -1,0 +1,13 @@
+section,operator,metric,value
+GroupB,EDL,total,625
+GroupB,EDL,ok,391
+GroupB,EDL,domain_fail,175
+GroupB,EDL,div_by_zero,25
+GroupB,EDL,overflow,34
+GroupB,EDL,max_rel_err,8.274036437823376e-08
+GroupB,DivLogExp,total,625
+GroupB,DivLogExp,ok,414
+GroupB,DivLogExp,domain_fail,175
+GroupB,DivLogExp,div_by_zero,0
+GroupB,DivLogExp,overflow,36
+GroupB,DivLogExp,max_rel_err,8.274037121856339e-08

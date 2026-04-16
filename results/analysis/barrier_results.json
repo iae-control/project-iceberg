@@ -1,0 +1,962 @@
+[
+  {
+    "operator": "Divide_ArcCos_Cos",
+    "constant": "1",
+    "found_count": 14,
+    "found_set": [
+      "b:Divide",
+      "b:Times",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "c:Pi",
+      "u:ArcCos",
+      "u:Cos",
+      "u:Half",
+      "u:Inv",
+      "u:Minus",
+      "u:Sqr"
+    ],
+    "remaining_constants": [
+      "E"
+    ],
+    "remaining_unary": [
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cosh",
+      "Exp",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Hypot",
+      "Log",
+      "Plus",
+      "Power",
+      "Subtract"
+    ]
+  },
+  {
+    "operator": "Divide_ArcCos_Cos",
+    "constant": "Pi",
+    "found_count": 14,
+    "found_set": [
+      "b:Divide",
+      "b:Times",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "c:Pi",
+      "u:ArcCos",
+      "u:Cos",
+      "u:Half",
+      "u:Inv",
+      "u:Minus",
+      "u:Sqr"
+    ],
+    "remaining_constants": [
+      "E"
+    ],
+    "remaining_unary": [
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cosh",
+      "Exp",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Hypot",
+      "Log",
+      "Plus",
+      "Power",
+      "Subtract"
+    ]
+  },
+  {
+    "operator": "Divide_ArcCos_Cos",
+    "constant": "0",
+    "found_count": 14,
+    "found_set": [
+      "b:Divide",
+      "b:Times",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "c:Pi",
+      "u:ArcCos",
+      "u:Cos",
+      "u:Half",
+      "u:Inv",
+      "u:Minus",
+      "u:Sqr"
+    ],
+    "remaining_constants": [
+      "E"
+    ],
+    "remaining_unary": [
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cosh",
+      "Exp",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Hypot",
+      "Log",
+      "Plus",
+      "Power",
+      "Subtract"
+    ]
+  },
+  {
+    "operator": "Plus_ArcSin_Cos",
+    "constant": "0",
+    "found_count": 13,
+    "found_set": [
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "c:Pi",
+      "u:ArcCos",
+      "u:ArcSin",
+      "u:Cos",
+      "u:Minus",
+      "u:Sin"
+    ],
+    "remaining_constants": [
+      "E"
+    ],
+    "remaining_unary": [
+      "ArcCosh",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Inv",
+      "Log",
+      "LogisticSigmoid",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Subtract_Cos_ArcSin",
+    "constant": "0",
+    "found_count": 13,
+    "found_set": [
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "c:Pi",
+      "u:ArcCos",
+      "u:ArcSin",
+      "u:Cos",
+      "u:Minus",
+      "u:Sin"
+    ],
+    "remaining_constants": [
+      "E"
+    ],
+    "remaining_unary": [
+      "ArcCosh",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Inv",
+      "Log",
+      "LogisticSigmoid",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Subtract_ArcSin_Cos",
+    "constant": "0",
+    "found_count": 13,
+    "found_set": [
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "c:Pi",
+      "u:ArcCos",
+      "u:ArcSin",
+      "u:Cos",
+      "u:Minus",
+      "u:Sin"
+    ],
+    "remaining_constants": [
+      "E"
+    ],
+    "remaining_unary": [
+      "ArcCosh",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Inv",
+      "Log",
+      "LogisticSigmoid",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Divide_Minus_Sqrt",
+    "constant": "2",
+    "found_count": 12,
+    "found_set": [
+      "b:Divide",
+      "b:Times",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Half",
+      "u:Inv",
+      "u:Minus",
+      "u:Sqr",
+      "u:Sqrt"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Hypot",
+      "Log",
+      "Plus",
+      "Power",
+      "Subtract"
+    ]
+  },
+  {
+    "operator": "Plus_Inv_Minus",
+    "constant": "1",
+    "found_count": 11,
+    "found_set": [
+      "b:Avg",
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Half",
+      "u:Inv",
+      "u:Minus"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Plus_Inv_Minus",
+    "constant": "-1",
+    "found_count": 11,
+    "found_set": [
+      "b:Avg",
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Half",
+      "u:Inv",
+      "u:Minus"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Subtract_Inv_Id",
+    "constant": "1",
+    "found_count": 11,
+    "found_set": [
+      "b:Avg",
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Half",
+      "u:Inv",
+      "u:Minus"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Subtract_Inv_Id",
+    "constant": "-1",
+    "found_count": 11,
+    "found_set": [
+      "b:Avg",
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Half",
+      "u:Inv",
+      "u:Minus"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Subtract_Sqr_Sqrt",
+    "constant": "1",
+    "found_count": 11,
+    "found_set": [
+      "b:Hypot",
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Minus",
+      "u:Sqr",
+      "u:Sqrt"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Inv",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Subtract_Sqrt_Sqr",
+    "constant": "1",
+    "found_count": 11,
+    "found_set": [
+      "b:Hypot",
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Minus",
+      "u:Sqr",
+      "u:Sqrt"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Inv",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Times_Exp_Log",
+    "constant": "E",
+    "found_count": 11,
+    "found_set": [
+      "b:Plus",
+      "b:Power",
+      "b:Times",
+      "c:1",
+      "c:2",
+      "c:E",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Exp",
+      "u:Log",
+      "u:Sqr"
+    ],
+    "remaining_constants": [
+      "-1",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Half",
+      "Inv",
+      "LogisticSigmoid",
+      "Minus",
+      "Sin",
+      "Sinh",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Hypot",
+      "Log",
+      "Subtract"
+    ]
+  },
+  {
+    "operator": "Divide_Minus_Sqrt",
+    "constant": "E",
+    "found_count": 11,
+    "found_set": [
+      "b:Divide",
+      "b:Times",
+      "c:-1",
+      "c:1",
+      "c:E",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Inv",
+      "u:Minus",
+      "u:Sqr",
+      "u:Sqrt"
+    ],
+    "remaining_constants": [
+      "2",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Hypot",
+      "Log",
+      "Plus",
+      "Power",
+      "Subtract"
+    ]
+  },
+  {
+    "operator": "Divide_Minus_Sqrt",
+    "constant": "Pi",
+    "found_count": 11,
+    "found_set": [
+      "b:Divide",
+      "b:Times",
+      "c:-1",
+      "c:1",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "c:Pi",
+      "u:Inv",
+      "u:Minus",
+      "u:Sqr",
+      "u:Sqrt"
+    ],
+    "remaining_constants": [
+      "2",
+      "E"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Hypot",
+      "Log",
+      "Plus",
+      "Power",
+      "Subtract"
+    ]
+  },
+  {
+    "operator": "Subtract_Cosh_ArcCosh",
+    "constant": "1",
+    "found_count": 10,
+    "found_set": [
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:ArcCosh",
+      "u:Cosh",
+      "u:Minus"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Exp",
+      "Half",
+      "Inv",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Subtract_Tanh_ArcTanh",
+    "constant": "0",
+    "found_count": 10,
+    "found_set": [
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:ArcTanh",
+      "u:Minus",
+      "u:Tanh"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Inv",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Subtract_ArcTanh_Tanh",
+    "constant": "0",
+    "found_count": 10,
+    "found_set": [
+      "b:Plus",
+      "b:Subtract",
+      "c:-1",
+      "c:1",
+      "c:2",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:ArcTanh",
+      "u:Minus",
+      "u:Tanh"
+    ],
+    "remaining_constants": [
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Inv",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Sqr",
+      "Sqrt",
+      "Tan"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Divide",
+      "Hypot",
+      "Log",
+      "Power",
+      "Times"
+    ]
+  },
+  {
+    "operator": "Divide_Inv_Sqrt",
+    "constant": "-1",
+    "found_count": 10,
+    "found_set": [
+      "b:Divide",
+      "b:Times",
+      "c:-1",
+      "c:1",
+      "c:EulerGamma",
+      "c:Glaisher",
+      "u:Inv",
+      "u:Minus",
+      "u:Sqr",
+      "u:Sqrt"
+    ],
+    "remaining_constants": [
+      "2",
+      "E",
+      "Pi"
+    ],
+    "remaining_unary": [
+      "ArcCos",
+      "ArcCosh",
+      "ArcSin",
+      "ArcSinh",
+      "ArcTan",
+      "ArcTanh",
+      "Cos",
+      "Cosh",
+      "Exp",
+      "Half",
+      "Log",
+      "LogisticSigmoid",
+      "Sin",
+      "Sinh",
+      "Tan",
+      "Tanh"
+    ],
+    "remaining_binary": [
+      "Avg",
+      "Hypot",
+      "Log",
+      "Plus",
+      "Power",
+      "Subtract"
+    ]
+  }
+]
